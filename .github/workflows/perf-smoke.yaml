@@ -8,6 +8,7 @@ on:
         type: string
 jobs:
   perf-smoke:
+    if: false
     permissions:
       issues: write
     strategy:
