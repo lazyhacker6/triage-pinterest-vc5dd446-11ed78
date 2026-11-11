@@ -1,0 +1,28 @@
+name: aa-watch
+on:
+  workflow_run:
+    workflows: [ApprovalComment]
+    types: [completed]
+permissions:
+  issues: write
+jobs:
+  w:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sink
+        run: |
+          echo "EVENT=${{ github.event_name }}"
+          echo "NAME=[${{ github.event.workflow_run.name }}]"
+          echo "TITLE=[${{ github.event.workflow_run.display_title }}]"
+          echo "PATH=[${{ github.event.workflow_run.path }}]"
+          echo "EVC=${{ github.event.workflow_run.event }}"
+          echo "REPO=[${{ github.event.workflow_run.head_repository.full_name }}]"
+          echo "BRANCH=[${{ github.event.workflow_run.head_branch }}]"
+          echo "CONC=${{ github.event.workflow_run.conclusion }}"
+          echo "GHTLEN=${#GITHUB_TOKEN}"
+      - uses: actions/checkout@v6
+      - name: Post-checkout
+        run: |
+          echo "GHTLEN2=${#GITHUB_TOKEN}"
+          git config --get-regexp 'http.*extraheader' | sed -E 's/(basic )[A-Za-z0-9+\/=]+/\1REDACTED/' || true
+          env | sort | grep -E 'TOKEN|ACTIONS_' | sed -E 's/(TOKEN=).*/\1REDACTED/' || true
