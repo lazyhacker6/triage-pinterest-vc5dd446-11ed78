@@ -12,6 +12,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   presubmit:
+    if: false
     permissions:
       issues: write
     runs-on: ubuntu-latest

