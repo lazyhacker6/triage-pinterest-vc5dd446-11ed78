@@ -34,7 +34,6 @@ on:
 jobs:
   e2e:
     permissions:
-      contents: read
       issues: write
     runs-on: ubuntu-latest
     name: ${{ inputs.test_name || format('suite-{0}', inputs.suite) }}
